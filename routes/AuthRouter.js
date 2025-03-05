@@ -34,7 +34,7 @@ AuthRouter.post('/login', async (req, res) => {
   
       // Set session data
       req.session.user = {
-        id: user.id,
+        studentId: user.studentId,
         fullname: user.fullname,
         email: user.email,
         contact: user.contact,
@@ -115,18 +115,15 @@ AuthRouter.post('/register', async (req, res)=>{
 
 AuthRouter.post('/register-student', async (req, res)=>{
     try{
-        const {fullname, email, contact, password ,confirmPassword,userType,address,Dob} = req.body
+        const {fullname, email, contact, password ,userType,address,Dob,Angenid} = req.body
 
-        console.log("reg:",fullname, email, contact, password ,confirmPassword,userType,address,Dob)
+        console.log("reg:",fullname, email, contact, password ,userType,address,Dob,Angenid)
         
         
-        if(!fullname || !email || !contact || !password || !confirmPassword || !userType || !address || !Dob){
+        if(!fullname || !email || !contact || !password  || !userType || !address || !Dob || !Angenid){
             return res.send({success: false, message: 'Please provide all details!'})
         }
-        if(confirmPassword !== password){
-            return res.send({success : false , message : "Passwords do not match!"})
-            
-        }
+
         
         const fetchUser = await StudentModel.findOne({email: email.toLowerCase()})
         if(fetchUser){
@@ -145,7 +142,7 @@ AuthRouter.post('/register-student', async (req, res)=>{
 
         const newUser = new StudentModel({
             studentId : userId,
-            Angenid : useradmin.Angenid, 
+            Angenid : Angenid,
             fullname: fullname,
             email: email,
             contact: contact,
