@@ -18,7 +18,7 @@ UserRouter.post('/login', async (req, res) => {
         const filteredData = await StudentModel.find({ _id: user._id, this_sepkala: 1 });
 
         // Fetch Thingspeak API data
-        const thingspeakURL = 'https://api.thingspeak.com/channels/2863937/feeds.json?api_key=O6JC01WADHU0WXRD';
+        const thingspeakURL = 'https://api.thingspeak.com/channels/2877835/feeds.json?api_key=X6W35RACSZEL05QJ';
         const thingspeakResponse = await axios.get(thingspeakURL);
 
         // Extract field1 data
@@ -36,7 +36,7 @@ UserRouter.post('/login', async (req, res) => {
 
 UserRouter.get('/fetch-Data',async (req,res)=>{
     if(req.session.user){
-        const userid = await StudentModel.findOne({  studentId : req.session.user.id})
+        const userid = await StudentModel.findOne({  studentId : req.session.user.id}) 
         if(userid){
 
         }
